@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;netstandard2.0;net45</TargetFrameworks>
+		<Authors>Benji Altman</Authors>
+		<Company></Company>
+		<Description>Extensions to binary writer and reader for more types</Description>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Copyright>MIT</Copyright>
+		<PackageProjectUrl>https://github.com/theGerk/tabletransfer</PackageProjectUrl>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+</Project>
