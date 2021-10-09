@@ -11,13 +11,19 @@ namespace Gerk.BinaryExtension
 		public static void Write(this BinaryWriter bw, Guid value) => bw.Write(value.ToByteArray());
 		public static void Write(this BinaryWriter bw, DateTime value) => bw.Write(value.ToBinary());
 		public static void Write(this BinaryWriter bw, TimeSpan value) => bw.Write(value.Ticks);
+		public static void WriteBinaryData(this BinaryWriter bw, byte[] value)
+		{
+			bw.Write(value.Length);
+			bw.Write(value);
+		}
 
 		// Support nulls
 		public static void Write(this BinaryWriter bw, bool? value)
 		{
-			bw.Write(value.HasValue);
-			if (value.HasValue)
-				bw.Write(value.Value);
+			byte write = Convert.ToByte(value ?? false);
+			write <<= 1;
+			write |= Convert.ToByte(value.HasValue);
+			bw.Write(write);
 		}
 		public static void Write(this BinaryWriter bw, byte? value)
 		{
@@ -97,11 +103,11 @@ namespace Gerk.BinaryExtension
 			if (value != null)
 				bw.Write(value);
 		}
-		public static void WriteNullable(this BinaryWriter bw, byte[] value)
+		public static void WriteNullableBinaryData(this BinaryWriter bw, byte[] value)
 		{
 			bw.Write(value != null);
 			if (value != null)
-				bw.Write(value);
+				bw.WriteBinaryData(value);
 		}
 		public static void Write(this BinaryWriter bw, DateTime? value)
 		{
