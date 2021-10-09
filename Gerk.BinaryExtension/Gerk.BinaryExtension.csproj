@@ -7,7 +7,7 @@
 		<Description>Extensions to binary writer and reader for more types</Description>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<Copyright>MIT</Copyright>
-		<PackageProjectUrl>https://github.com/theGerk/tabletransfer</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/theGerk/Gerk.BinaryExtension</PackageProjectUrl>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
