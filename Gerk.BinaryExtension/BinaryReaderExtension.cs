@@ -105,7 +105,14 @@ namespace Gerk.BinaryExtension
 			else
 				return null;
 		}
-		public static byte[] ReadNullableRaw(this BinaryReader br)
+		public static string ReadNullableString(this BinaryReader br)
+		{
+			if (br.ReadBoolean())
+				return br.ReadString();
+			else
+				return null;
+		}
+		public static byte[] ReadNullableBinaryData(this BinaryReader br)
 		{
 			if (br.ReadBoolean())
 				return br.ReadBinaryData();
