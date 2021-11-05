@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.1;netstandard2.0;net45</TargetFrameworks>
+		<TargetFrameworks>net5;netstandard2.1;netstandard2.0;net45</TargetFrameworks>
 		<Authors>Benji Altman</Authors>
 		<Company></Company>
 		<Description>Extensions to binary writer and reader for more types</Description>
