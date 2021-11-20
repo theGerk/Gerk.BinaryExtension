@@ -4,12 +4,14 @@
 		<TargetFrameworks>netstandard2.1;netstandard2.0;net45;net5;net6</TargetFrameworks>
 		<Authors>Benji Altman</Authors>
 		<Company></Company>
-		<Description>Extensions to binary writer and reader for more types</Description>
+		<Description>Helpful functionality for working with binary data.</Description>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Copyright>MIT</Copyright>
 		<PackageProjectUrl>https://github.com/theGerk/Gerk.BinaryExtension</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/theGerk/Gerk.BinaryExtension</RepositoryUrl>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Version>2.0.0</Version>
+		<Version>3.0.0</Version>
 	</PropertyGroup>
 
 </Project>
