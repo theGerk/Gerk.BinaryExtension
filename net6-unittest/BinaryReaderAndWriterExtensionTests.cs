@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Gerk.BinaryExtension.Tests
 {
-	public class UnitTest1
+	public class BinaryReaderAndWriterExtensionTests
 	{
 		public static (BinaryReader reader, BinaryWriter writer, MemoryStream mem) init()
 		{
