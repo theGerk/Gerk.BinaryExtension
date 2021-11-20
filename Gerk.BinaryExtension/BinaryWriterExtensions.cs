@@ -13,7 +13,7 @@ namespace Gerk.BinaryExtension
 		public static void Write(this BinaryWriter bw, TimeSpan value) => bw.Write(value.Ticks);
 		public static void WriteBinaryData(this BinaryWriter bw, byte[] value)
 		{
-			bw.Write(value.Length);
+			bw.Write((uint)value.Length);
 			bw.Write(value);
 		}
 
