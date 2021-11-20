@@ -7,10 +7,26 @@ namespace Gerk.BinaryExtension
 {
 	public static class BinaryReaderExtension
 	{
-		public static Guid ReadGuid(this BinaryReader br) => new Guid(br.ReadBytes(16));
+		internal const uint GUID_SIZE = 16;
+		public static Guid ReadGuid(this BinaryReader br) => new Guid(br.ReadBytes((int)GUID_SIZE));
 		public static DateTime ReadDateTime(this BinaryReader br) => DateTime.FromBinary(br.ReadInt64());
 		public static TimeSpan ReadTimeSpan(this BinaryReader br) => TimeSpan.FromTicks(br.ReadInt64());
 		public static byte[] ReadBinaryData(this BinaryReader br) => br.ReadBytes(br.ReadInt32());
+		/// <summary>
+		/// Reads does the same as <see cref="ReadBinaryData(BinaryReader)"/>, but limits the size that it may read.
+		/// Will simply return null and not read further in the stream if the size is too large.
+		/// </summary>
+		/// <param name="br"></param>
+		/// <param name="maxSize"></param>
+		/// <returns></returns>
+		public static byte[] ReadBinaryData(this BinaryReader br, int maxSize)
+		{
+			var size = br.ReadInt32();
+			if (size > maxSize)
+				return null;
+			else
+				return br.ReadBytes(size);
+		}
 
 		// Support nulls
 		public static bool? ReadNullableBoolean(this BinaryReader br)
@@ -116,6 +132,13 @@ namespace Gerk.BinaryExtension
 		{
 			if (br.ReadBoolean())
 				return br.ReadBinaryData();
+			else
+				return null;
+		}
+		public static byte[] ReadNullableBinaryData(this BinaryReader br, int maxSize)
+		{
+			if (br.ReadBoolean())
+				return br.ReadBinaryData(maxSize);
 			else
 				return null;
 		}
