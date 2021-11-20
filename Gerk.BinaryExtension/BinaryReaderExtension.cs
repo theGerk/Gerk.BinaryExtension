@@ -11,21 +11,28 @@ namespace Gerk.BinaryExtension
 		public static Guid ReadGuid(this BinaryReader br) => new Guid(br.ReadBytes((int)GUID_SIZE));
 		public static DateTime ReadDateTime(this BinaryReader br) => DateTime.FromBinary(br.ReadInt64());
 		public static TimeSpan ReadTimeSpan(this BinaryReader br) => TimeSpan.FromTicks(br.ReadInt64());
-		public static byte[] ReadBinaryData(this BinaryReader br) => br.ReadBytes(br.ReadInt32());
+		public static byte[] ReadBinaryData(this BinaryReader br) => br.ReadBytes((int)br.ReadUInt32());
 		/// <summary>
-		/// Reads does the same as <see cref="ReadBinaryData(BinaryReader)"/>, but limits the size that it may read.
-		/// Will simply return null and not read further in the stream if the size is too large.
+		/// Reads does the same as <see cref="ReadBinaryData(BinaryReader)"/>, but limits the size.
+		/// If the data would be larger than <paramref name="maxSize"/> or is negative it will not read it at all and the reader would have only advanced 4 bytes reading the size.
 		/// </summary>
 		/// <param name="br"></param>
-		/// <param name="maxSize"></param>
-		/// <returns></returns>
-		public static byte[] ReadBinaryData(this BinaryReader br, int maxSize)
+		/// <param name="maxSize">The maximum expected size of the data in bytes. Expected to be positive.</param>
+		/// <param name="data">The resulting data.</param>
+		/// <returns>If the data was able to be read (smaller than <paramref name="maxSize"/> and positive).</returns>
+		public static bool TryReadBinaryData(this BinaryReader br, out byte[] data, int maxSize = int.MaxValue)
 		{
-			var size = br.ReadInt32();
-			if (size > maxSize)
-				return null;
+			var size = br.ReadUInt32();
+			if (size > (uint)maxSize)
+			{
+				data = default;
+				return false;
+			}
 			else
-				return br.ReadBytes(size);
+			{
+				data = br.ReadBytes((int)size);
+				return true;
+			}
 		}
 
 		// Support nulls
@@ -135,12 +142,23 @@ namespace Gerk.BinaryExtension
 			else
 				return null;
 		}
-		public static byte[] ReadNullableBinaryData(this BinaryReader br, int maxSize)
+		/// <summary>
+		/// Reads does the same as <see cref="ReadBinaryData(BinaryReader)"/>, but limits the size.
+		/// If the data would be larger than <paramref name="maxSize"/> or is negative it will not read it at all and the reader would have only advanced 4 bytes reading the size.
+		/// </summary>
+		/// <param name="br"></param>
+		/// <param name="maxSize">The maximum expected size of the data in bytes. Expected to be positive.</param>
+		/// <param name="data">The resulting data.</param>
+		/// <returns>If the data was able to be read (smaller than <paramref name="maxSize"/> and positive).</returns>
+		public static bool TryReadNullableBinaryData(this BinaryReader br, out byte[] data, int maxSize = int.MaxValue)
 		{
 			if (br.ReadBoolean())
-				return br.ReadBinaryData(maxSize);
+				return br.TryReadBinaryData(out data, maxSize);
 			else
-				return null;
+			{
+				data = null;
+				return true;
+			}
 		}
 		public static DateTime? ReadNullableDateTime(this BinaryReader br)
 		{
