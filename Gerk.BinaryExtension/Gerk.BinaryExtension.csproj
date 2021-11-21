@@ -12,6 +12,7 @@
 		<RepositoryUrl>https://github.com/theGerk/Gerk.BinaryExtension</RepositoryUrl>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Version>3.0.1</Version>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 </Project>
