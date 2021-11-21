@@ -10,7 +10,7 @@ namespace Gerk.BinaryExtension.Tests
 	public static class BinaryHelperTests
 	{
 		[Fact]
-		public static void Test_Short()
+		public static void xor_Short()
 		{
 			byte[] a = new byte[] { 1, 5 }, b = new byte[] { 2, 3 }, c = new byte[] { 3, 6 };
 			a.xor(b);
@@ -18,7 +18,7 @@ namespace Gerk.BinaryExtension.Tests
 		}
 
 		[Fact]
-		public static void Test_Long()
+		public static void xor_Long()
 		{
 			const int length = 100;
 			byte[] a = new byte[length], b = new byte[length];
